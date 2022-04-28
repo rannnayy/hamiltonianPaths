@@ -4,6 +4,8 @@
 #define true 1
 #define false 0
 
+#define GRN   "\x1B[32m"
+#define RESET "\x1B[0m"
 #define maxLen 255
 
 boolean hasHamiltonian = false;
@@ -61,7 +63,14 @@ int main() {
     int row, col;
     int vertices;
 
-    fp = fopen("file1.txt", "r");
+    char file[maxLen];
+    printf(GRN "\nWelcome to Hamiltonian Path" RESET);
+
+    printf("\nHamiltonian Path means that every vertices in a graph is traversed once only.");
+    printf("\n\nEnter file name: ");
+    gets(file);
+
+    fp = fopen(file, "r");
 
     if (fp == NULL) {
         printf("File tidak dapat dibuka\n");
