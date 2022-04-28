@@ -9,8 +9,10 @@
 #define maxLen 255
 
 boolean hasHamiltonian = false;
+int count = 0;
 
 void printSolution(int vertices, int p[]) {
+    count++;
     for (int i = 0; i < vertices; i++)
         printf("%d ", p[i]);
     printf("%d\n", p[0]);
@@ -33,7 +35,7 @@ void hamiltonianCycle(int vertices, boolean g[vertices][vertices], int path[], i
             hasHamiltonian = true;
         }
     }
-    for (int n = 1; n < vertices; n++) {
+    for (int n = 0; n < vertices; n++) {
         if (isSafe(vertices, n, g, path, pos)) //Check if this vertex can be added to Hamiltonian Cycle
         {
             path[pos] = n;
@@ -48,11 +50,13 @@ void hamiltonianPath(int vertices, boolean g[vertices][vertices]) {
     int path[vertices];
     for (int i = 0; i < vertices; i++)
         path[i] = -1;
-
-    path[0] = 0;
-    hamiltonianCycle(vertices, g, path, 1);
-    if (hasHamiltonian == false) {
-        printf("\nCycle does not exist");
+    
+    for (int i = 0; i < vertices; i++) {
+        path[0] = i;
+        hamiltonianCycle(vertices, g, path, 1);
+        if (hasHamiltonian == false) {
+            printf("\nCycle beginning on %d vertex doesn't exist", i);
+        }
     }
 }
 
@@ -119,6 +123,7 @@ int main() {
     
     // Search for Hamiltonian Path
     hamiltonianPath(vertices, matrix);
+    printf("Terdapat %d hamiltonian cycle\n", count);
 
     return 0;
 }
