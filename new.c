@@ -11,11 +11,18 @@
 boolean hasHamiltonian = false;
 int count = 0;
 
+FILE *fp2;
+
 void printSolution(int vertices, int p[]) {
     count++;
-    for (int i = 0; i < vertices; i++)
+    for (int i = 0; i < vertices; i++) {
         printf("%d ", p[i]);
+        fputc(p[i]+'0', fp2);
+        fputc(' ', fp2);
+    }
     printf("%d\n", p[0]);
+    fputc(p[0]+'0', fp2);
+    fputc('\n', fp2);
 }
 
 boolean isSafe(int vertices, int n, boolean g[vertices][vertices], int path[], int pos) {
@@ -121,9 +128,13 @@ int main() {
         printf("\n");
     }
     
+    fp2 = fopen("halo.txt", "w+");
+
     // Search for Hamiltonian Path
     hamiltonianPath(vertices, matrix);
-    printf("Terdapat %d hamiltonian cycle\n", count);
+    printf("\nTerdapat %d hamiltonian path\n", count);
+
+    fclose(fp2);
 
     return 0;
 }
